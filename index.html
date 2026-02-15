@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kenangan Kita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-stack">
+        <a class="brand" href="#">Memoflix</a>
+        <p class="brand-note">Kumpulan momen yang selalu hidup lewat cerita</p>
+      </div>
+      <nav class="top-nav" aria-label="Navigasi utama">
+        <ul class="nav-list">
+          <li><a class="nav-link active" href="#our-memory">Our Memory</a></li>
+          <li><a class="nav-link" href="#timeline">Timeline</a></li>
+          <li><a class="nav-link" href="secret-message.html">Message for</a></li>
+          <li><a class="nav-link" href="login.html" id="loginLink">Login</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" aria-label="Hero memorial" style="--hero-image: url('assets/img/hero/hero-01.jpg');">
+    <div class="hero-content">
+      <p class="hero-kicker">Album Kita</p>
+      <h1>Cerita Di Balik Setiap Foto</h1>
+      <p>
+        Klik salah satu foto memorial di bawah untuk membaca kisah lengkap di balik momen itu.
+        Dibuat dengan tampilan bergaya streaming supaya terasa hangat, rapi, dan mudah dinikmati.
+      </p>
+    </div>
+  </section>
+
+  <main class="catalog" id="our-memory">
+    <div class="section-head">
+      <h2>Koleksi Memorial</h2>
+      <span>Klik foto untuk membuka cerita</span>
+    </div>
+
+    <div class="photo-grid" id="photoGrid"></div>
+  </main>
+
+  <section class="timeline-section" id="timeline">
+    <div class="timeline-inner">
+      <div class="section-head">
+        <h2>Timeline Kenangan</h2>
+        <span>Perjalanan cerita dari waktu ke waktu</span>
+      </div>
+      <div class="timeline-list" id="timelineList"></div>
+    </div>
+  </section>
+
+  <div class="modal" id="storyModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-panel" id="modalPanel">
+      <div class="modal-media">
+        <div class="modal-photo" id="modalPhoto"></div>
+        <div class="modal-gallery" id="modalGallery" aria-label="Pilihan foto lainnya"></div>
+      </div>
+      <div class="modal-content">
+        <h3 id="modalTitle"></h3>
+        <p class="modal-year" id="modalMeta"></p>
+        <p id="modalStory"></p>
+        <section class="modal-comments">
+          <div class="comments-head">
+            <h4>Komentar Kenangan</h4>
+            <a href="login.html" id="commentLoginHint">Login untuk komentar</a>
+          </div>
+          <div class="comment-list" id="commentList"></div>
+          <form id="commentForm" class="comment-form">
+            <textarea id="commentInput" rows="3" placeholder="Tulis komentar untuk memorial ini..."></textarea>
+            <button class="close-btn" type="submit">Kirim Komentar</button>
+          </form>
+        </section>
+        <div class="modal-actions">
+          <button class="close-btn" id="fullScreenBtn" type="button">Full Screen</button>
+          <button class="close-btn" id="closeModal" type="button">Tutup Cerita</button>
+        </div>
+        <p class="modal-hint">Tip: tekan tombol ESC untuk menutup.</p>
+      </div>
+    </div>
+  </div>
+
+  <script id="memorialData" type="application/json">
+  [
+    {
+      "title": "City Light di B&B Coffe Shop",
+      "year": "25 Desember 2025",
+      "short": "Mamah nungguin di Gateway.",
+      "cover": "assets/B&B/bnb (2).jpg",
+      "gallery": [
+        "assets/B&B/bnb (1).jpg",
+        "assets/B&B/bnb (2).jpg",
+        "assets/B&B/bnb (3).jpg",
+        "assets/B&B/bnb (4).jpg",
+        "assets/B&B/bnb (5).jpg"
+      ],
+      "story": "Sore itu, aku dan kamu pergi berdua ke Beans & Butter Coffee Shop. Itu pertama kalinya kita main agak jauh ke sana—selain ke Summarecon, yang jadi titik awal kita mulai dekat. Aku menuliskan ini hanya untuk menambah kenangan, supaya hari itu tidak hilang begitu saja ditelan waktu. <br><br>Waktu itu kamu pamit ke mamahmu dengan kebohongan kecil. Sampai sekarang kalau kuingat rasanya lucu sekali. Ada nada gugup di suaramu yang berusaha terdengar biasa saja, sementara aku di sampingmu hampir tertawa menahan gemas. Entah kenapa, momen sederhana seperti itu justru terasa hangat. <br><br>Di sana, kita benar-benar bercerita panjang lebar. Tentang banyak hal. Tentang hal-hal yang bahkan terlalu pribadi untuk kutulis ulang di sini. Yang jelas, sore itu jadi salah satu titik di mana aku sadar—kedekatan kita bukan lagi sekadar kebetulan. Ada sesuatu yang tumbuh perlahan, tapi pasti. <br><br>Kamu memberiku kenyamanan yang belum pernah kurasakan sebelumnya. Cara kamu menarikku lebih dekat, cara tanganmu memelukku dengan mantap tapi tetap lembut. Aku suka dipeluk seperti itu—rasanya aman. Dan aku tahu kamu suka ketika rambutmu kuelus pelan, jari-jariku menyusuri helai-helainya dengan hati-hati. Hal kecil, tapi terasa berarti. <br><br>Waktu berjalan terlalu cepat. Kita harus pulang karena mamahmu terus menelepon. Berkali-kali. Bahkan sampai menunggu di Gateway. Aku masih ingat bagaimana kita saling berpandangan, setengah panik, setengah ingin menunda perpisahan. <br><br>Di atas motor, sebelum benar-benar berpisah, aku teringat janjiku untuk selalu memelukmu. Tapi entah kenapa, saat sudah sampai, aku malah takut turun. Jantungku berdegup lebih cepat dari biasanya. Aku takut tiba-tiba mamahmu muncul—apalagi dia sedang menunggu di Gateway. Jadi akhirnya kita hanya berpelukan di atas motor. <br><br>Kamu sempat bilang itu tidak romantis. Aku langsung tertawa. Memang sih, kalau dipikir-pikir, agak aneh juga. Dua orang berpelukan di atas motor dengan perasaan campur aduk antara bahagia dan takut ketahuan. Tapi justru di situ lucunya. Justru di situ manisnya. <br><br>Serius, hari itu sederhana—tidak ada yang luar biasa dari luar. Hanya dua orang, kopi yang mulai mendingin, dan panggilan telepon yang tak berhenti. Tapi bagiku, sore itu terasa penuh. Hangat. Dan setiap kali kuingat, aku masih bisa merasakan pelukan itu—dan bagaimana aku takut sekaligus bahagia dalam waktu yang sama."
+      }
+    ]
+  </script>
+
+  <script src="supabase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
+
+
+

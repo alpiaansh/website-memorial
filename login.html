@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Memoflix</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .login-page {
+      width: min(560px, 92vw);
+      margin: 42px auto;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      padding: 20px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+    }
+    .login-page h1 {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .login-page p {
+      color: #e5e5e5;
+      margin-bottom: 14px;
+      font-size: 0.92rem;
+    }
+    .login-actions {
+      display: grid;
+      gap: 8px;
+    }
+    .login-btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 14px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.9rem;
+      cursor: pointer;
+      background: #ff2f92;
+    }
+    .login-btn.alt {
+      background: rgba(255, 255, 255, 0.16);
+    }
+    .login-note {
+      margin-top: 10px;
+      color: #ffd6ef;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-stack">
+        <a class="brand" href="index.html">Memoflix</a>
+        <p class="brand-note">Kumpulan momen yang selalu hidup lewat cerita</p>
+      </div>
+      <nav class="top-nav" aria-label="Navigasi utama">
+        <ul class="nav-list">
+          <li><a class="nav-link" href="index.html#our-memory">Our Memory</a></li>
+          <li><a class="nav-link" href="index.html#timeline">Timeline</a></li>
+          <li><a class="nav-link" href="secret-message.html">Message for</a></li>
+          <li><a class="nav-link active" href="login.html">Login</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="login-page">
+    <h1>Login Memorial</h1>
+    <p>Pakai akun Google untuk bisa kirim komentar pada tiap memorial.</p>
+    <div class="login-actions">
+      <button class="login-btn" id="googleLoginBtn" type="button">Login dengan Google</button>
+      <button class="login-btn alt" id="instagramLoginBtn" type="button">Login dengan Instagram</button>
+      <button class="login-btn alt" id="logoutBtn" type="button">Logout</button>
+    </div>
+    <p class="login-note" id="loginStatus">Status: belum login</p>
+  </main>
+
+  <script src="supabase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const statusEl = document.getElementById("loginStatus");
+    const googleBtn = document.getElementById("googleLoginBtn");
+    const instagramBtn = document.getElementById("instagramLoginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const cfg = window.APP_CONFIG || {};
+    const supabaseUrl = String(cfg.SUPABASE_URL || "").trim();
+    const supabaseAnonKey = String(cfg.SUPABASE_ANON_KEY || "").trim();
+    const supabaseClient =
+      window.supabase && supabaseUrl && supabaseAnonKey
+        ? window.supabase.createClient(supabaseUrl, supabaseAnonKey)
+        : null;
+
+    const updateStatus = async () => {
+      if (!supabaseClient) {
+        statusEl.textContent = "Status: config Supabase belum diisi.";
+        return;
+      }
+      const { data } = await supabaseClient.auth.getUser();
+      const user = data?.user;
+      statusEl.textContent = user
+        ? `Status: login sebagai ${user.user_metadata?.full_name || user.email}`
+        : "Status: belum login";
+    };
+
+    googleBtn.addEventListener("click", async () => {
+      if (!supabaseClient) return;
+      await supabaseClient.auth.signInWithOAuth({
+        provider: "google",
+        options: { redirectTo: window.location.origin + "/login.html" }
+      });
+    });
+
+    instagramBtn.addEventListener("click", () => {
+      alert("Instagram OAuth belum tersedia langsung di setup ini. Gunakan Google dulu.");
+    });
+
+    logoutBtn.addEventListener("click", async () => {
+      if (!supabaseClient) return;
+      await supabaseClient.auth.signOut();
+      updateStatus();
+    });
+
+    updateStatus();
+  </script>
+</body>
+</html>
+
+
+
